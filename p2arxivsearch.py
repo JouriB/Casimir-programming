@@ -1,5 +1,6 @@
 import urllib
-import matplotlib
+import numpy as np
+import matplotlib as plt
 %matplotlib inline
 # Request library
 #Specify URL for search
@@ -34,6 +35,25 @@ dates_revisit=finddate(readarxiv('novel',maxresults))
 print(dates_revisit)
 matplotlib.plot([0,1],[1,1])
 
-#    return
+#Search for specific author
+author='Kouwenhoven_L'
 
-# count words in the abstract
+url = 'http://export.arxiv.org/api/query?search_query=au:'+ author + '&start=0&max_results=10000'
+data = urllib.urlopen(url).read()
+words=data.split() # extract the words from the query
+
+sumstart=[]
+sumend=[]
+for i in range(len(words)-1):
+    if words[i]=="<summary>": # look up the word <summary> and save the index
+        sumstart.append(i)
+    elif words[i]=="</summary>": # look up the word </summary> and save the index
+        sumend.append(i)       
+sumstart=np.array(sumstart) #make a numpy array for processing
+sumend=np.array(sumend)
+abswcount=sumend-sumstart -1 # count the number of words per abstract
+
+#plot the data as 
+plt.hist(abswcount)
+plt.xlabel("number of words in abstract")
+plt.ylabel("number of papers")
