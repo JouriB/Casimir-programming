@@ -6,4 +6,8 @@ def circ(r):
 def surf(r):
     return 3.14*r**2
 
+    '''
+    bla die bla
+    '''
+    return 3.14*r**2
 print('Siegfried!')
