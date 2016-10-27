@@ -21,7 +21,6 @@ def readarxiv_author(author,maxresults):
     maxresults can be any integer and will limit the output number (although here it does not work)
     data is the HTML string returned
     """
-    maxresults=2
     url = 'http://export.arxiv.org/api/query?search_query=au:'+ author + '&start=0&max_results=' + str(maxresults)
     data = urllib.urlopen(url).read()
     return data
